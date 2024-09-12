@@ -7,17 +7,14 @@ import (
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 )
 
 func main() {
+	godotenv.Load()
+
 	port := os.Getenv("PORT")
-	if port == "" {
-		log.Fatal("ENV ERROR: {PORT}")
-	}
 	environment := os.Getenv("ENVIRONMENT")
-	if environment == "" {
-		log.Fatal("ENV ERROR: {ENVIRONMENT}")
-	}
 
 	r := gin.New()
 	r.Use(gin.Logger())

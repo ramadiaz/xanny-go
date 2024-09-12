@@ -6,8 +6,8 @@ import (
 	"log"
 	"os"
 
-	_ "github.com/lib/pq"
 	"github.com/joho/godotenv"
+	_ "github.com/lib/pq"
 )
 
 type DBConfig struct {
@@ -19,10 +19,7 @@ type DBConfig struct {
 }
 
 func InitDB() *sql.DB {
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatalf("Error loading .env file: %v", err)
-	}
+	godotenv.Load()
 
 	dbConfig := DBConfig{
 		User:     os.Getenv("DB_USER"),
@@ -32,12 +29,7 @@ func InitDB() *sql.DB {
 		Name:     os.Getenv("DB_NAME"),
 	}
 
-	if dbConfig.User == "" || dbConfig.Password == "" || dbConfig.Host == "" || dbConfig.Port == "" || dbConfig.Name == "" {
-		log.Fatal("Database configuration is missing")
-	}
-
-	dbURI := fmt.Sprintf("user=%s password=%s host=%s port=%s dbname=%s",  dbConfig.User, dbConfig.Password, dbConfig.Host, dbConfig.Port, dbConfig.Name)
-
+	dbURI := fmt.Sprintf("user=%s password=%s host=%s port=%s dbname=%s", dbConfig.User, dbConfig.Password, dbConfig.Host, dbConfig.Port, dbConfig.Name)
 
 	db, err := sql.Open("postgres", dbURI)
 	if err != nil {
