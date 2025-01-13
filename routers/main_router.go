@@ -21,7 +21,7 @@ func CompRouters(api *gin.RouterGroup) {
 	api.GET("/ping", func(ctx *gin.Context) {
 		ctx.JSON(http.StatusOK, dto.Response{
 			Status: http.StatusOK,
-			Data:   "pong",
+			Message:   "pong",
 		})
 	})
 
