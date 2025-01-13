@@ -1,4 +1,4 @@
-module layered-template
+module xanny-go-template
 
 go 1.22.1
 

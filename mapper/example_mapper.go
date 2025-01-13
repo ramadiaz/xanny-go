@@ -1,8 +1,8 @@
 package mapper
 
 import (
-	"layered-template/models/database"
-	"layered-template/models/dto"
+	"xanny-go-template/models/database"
+	"xanny-go-template/models/dto"
 
 	"github.com/go-viper/mapstructure/v2"
 )

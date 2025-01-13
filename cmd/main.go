@@ -1,10 +1,10 @@
 package main
 
 import (
-	"layered-template/config"
-	"layered-template/routers"
 	"log"
 	"os"
+	"xanny-go-template/config"
+	"xanny-go-template/routers"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"

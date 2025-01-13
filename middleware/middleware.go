@@ -3,13 +3,13 @@ package middleware
 import (
 	"compress/gzip"
 	"io"
-	"layered-template/exceptions"
-	"layered-template/models/database"
-	"layered-template/models/dto"
 	"net/http"
 	"net/url"
 	"os"
 	"strings"
+	"xanny-go-template/exceptions"
+	"xanny-go-template/models/database"
+	"xanny-go-template/models/dto"
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
@@ -84,9 +84,9 @@ func AuthMiddleware() gin.HandlerFunc {
 		}
 
 		user := dto.User{
-			ID:              claims["id"].(string),
-			Name:            claims["name"].(string),
-			Email:           claims["email"].(string),
+			ID:    claims["id"].(string),
+			Name:  claims["name"].(string),
+			Email: claims["email"].(string),
 		}
 
 		c.Set("user", user)

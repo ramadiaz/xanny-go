@@ -1,8 +1,8 @@
 package repositories
 
 import (
-	"layered-template/exceptions"
-	"layered-template/models/database"
+	"xanny-go-template/exceptions"
+	"xanny-go-template/models/database"
 
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"

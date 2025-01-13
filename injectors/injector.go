@@ -6,9 +6,9 @@
 package injectors
 
 import (
-	exampleControllers "layered-template/example/controllers"
-	exampleRepositories "layered-template/example/repositories"
-	exampleServices "layered-template/example/services"
+	exampleControllers "xanny-go-template/example/controllers"
+	exampleRepositories "xanny-go-template/example/repositories"
+	exampleServices "xanny-go-template/example/services"
 
 	"github.com/go-playground/validator/v10"
 	"github.com/google/wire"

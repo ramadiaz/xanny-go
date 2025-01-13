@@ -1,8 +1,8 @@
 package services
 
 import (
-	"layered-template/exceptions"
-	"layered-template/models/dto"
+	"xanny-go-template/exceptions"
+	"xanny-go-template/models/dto"
 
 	"github.com/gin-gonic/gin"
 )

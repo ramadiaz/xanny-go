@@ -1,10 +1,10 @@
 package services
 
 import (
-	"layered-template/example/repositories"
-	"layered-template/exceptions"
-	"layered-template/mapper"
-	"layered-template/models/dto"
+	"xanny-go-template/example/repositories"
+	"xanny-go-template/exceptions"
+	"xanny-go-template/mapper"
+	"xanny-go-template/models/dto"
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
@@ -25,7 +25,7 @@ func NewComponentServices(compRepositories repositories.CompRepositories, db *go
 	}
 }
 
-func(s *CompServicesImpl) Create(ctx *gin.Context, data dto.ExampleInput) *exceptions.Exception {
+func (s *CompServicesImpl) Create(ctx *gin.Context, data dto.ExampleInput) *exceptions.Exception {
 	input := mapper.MapExampleInputToModel(data)
 
 	return s.repo.Create(ctx, s.DB, input)

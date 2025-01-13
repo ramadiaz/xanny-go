@@ -1,10 +1,10 @@
 package controllers
 
 import (
-	"layered-template/example/services"
-	"layered-template/exceptions"
-	"layered-template/models/dto"
 	"net/http"
+	"xanny-go-template/example/services"
+	"xanny-go-template/exceptions"
+	"xanny-go-template/models/dto"
 
 	"github.com/gin-gonic/gin"
 )
