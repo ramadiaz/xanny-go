@@ -1,37 +1,69 @@
 package middleware
 
 import (
-	"database/sql"
+	"compress/gzip"
+	"io"
+	"layered-template/exceptions"
+	"layered-template/models/database"
+	"layered-template/models/dto"
 	"net/http"
 	"net/url"
 	"os"
 	"strings"
-	"layered-template/dto"
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
 	"github.com/mssola/user_agent"
+	"gorm.io/gorm"
 )
+
+func GzipResponseMiddleware() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		if !strings.Contains(c.Request.Header.Get("Accept-Encoding"), "gzip") {
+			c.Next()
+			return
+		}
+
+		gzipWriter := gzip.NewWriter(c.Writer)
+		defer gzipWriter.Close()
+
+		wrappedWriter := &gzipResponseWriter{
+			ResponseWriter: c.Writer,
+			Writer:         gzipWriter,
+		}
+
+		c.Writer = wrappedWriter
+		c.Writer.Header().Set("Content-Encoding", "gzip")
+		c.Writer.Header().Set("Vary", "Accept-Encoding")
+
+		c.Next()
+	}
+}
+
+type gzipResponseWriter struct {
+	gin.ResponseWriter
+	Writer io.Writer
+}
+
+func (g *gzipResponseWriter) Write(data []byte) (int, error) {
+	return g.Writer.Write(data)
+}
 
 func AuthMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		secret := os.Getenv("JWT_SECRET")
-		if secret == "" {
-			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "Error getting secret"})
-			return
-		}
 
 		var secretKey = []byte(secret)
 
 		authHeader := c.GetHeader("Authorization")
 		if authHeader == "" {
-			c.AbortWithStatusJSON(http.StatusForbidden, gin.H{"error": "Forbidden"})
+			c.AbortWithStatusJSON(http.StatusForbidden, exceptions.NewException(http.StatusForbidden, exceptions.ErrForbidden))
 			return
 		}
 
 		authHeaderParts := strings.Split(authHeader, " ")
 		if len(authHeaderParts) != 2 || authHeaderParts[0] != "Bearer" {
-			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "Invalid authorization token"})
+			c.AbortWithStatusJSON(http.StatusForbidden, exceptions.NewException(http.StatusForbidden, exceptions.ErrInvalidCredentials))
 			return
 		}
 
@@ -42,23 +74,19 @@ func AuthMiddleware() gin.HandlerFunc {
 		})
 
 		if err != nil {
-			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "Invalid authorization token"})
+			c.AbortWithStatusJSON(http.StatusForbidden, exceptions.NewException(http.StatusForbidden, exceptions.ErrInvalidCredentials))
 			return
 		}
 
 		if !token.Valid {
-			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "Invalid authorization token"})
+			c.AbortWithStatusJSON(http.StatusForbidden, exceptions.NewException(http.StatusForbidden, exceptions.ErrInvalidCredentials))
 			return
 		}
 
 		user := dto.User{
-			ID:        int64(claims["id"].(float64)),
-			Email:     claims["email"].(string),
-			Username:  claims["username"].(string),
-			FirstName: claims["first_name"].(string),
-			LastName:  claims["last_name"].(string),
-			Contact:   claims["contact"].(string),
-			Address:   claims["address"].(string),
+			ID:              claims["id"].(string),
+			Name:            claims["name"].(string),
+			Email:           claims["email"].(string),
 		}
 
 		c.Set("user", user)
@@ -67,7 +95,7 @@ func AuthMiddleware() gin.HandlerFunc {
 	}
 }
 
-func ClientTracker(db *sql.DB) gin.HandlerFunc {
+func ClientTracker(db *gorm.DB) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		clientIP := c.ClientIP()
 
@@ -85,13 +113,17 @@ func ClientTracker(db *sql.DB) gin.HandlerFunc {
 			RawQuery: rawQuery,
 		}
 
-		_, err := db.Exec("INSERT INTO client_track (ip, browser, version, os, device, origin, api) VALUES($1, $2, $3, $4, $5, $6, $7)", clientIP, name, version, ua.OS(), ua.Platform(), referer, fullURL.String())
-		if err != nil {
-			c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-			return
+		data := database.Client{
+			IP:      clientIP,
+			Browser: name,
+			Version: version,
+			OS:      ua.OS(),
+			Device:  ua.Platform(),
+			Origin:  referer,
+			API:     fullURL.String(),
 		}
 
-		c.Next()
+		go db.Create(&data)
 	}
 }
 

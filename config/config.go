@@ -1,13 +1,13 @@
 package config
 
 import (
-	"database/sql"
 	"fmt"
 	"log"
 	"os"
 
 	"github.com/joho/godotenv"
-	_ "github.com/lib/pq"
+	"gorm.io/driver/postgres"
+	"gorm.io/gorm"
 )
 
 type DBConfig struct {
@@ -18,7 +18,7 @@ type DBConfig struct {
 	Name     string
 }
 
-func InitDB() *sql.DB {
+func InitDB() *gorm.DB {
 	godotenv.Load()
 
 	dbConfig := DBConfig{
@@ -31,10 +31,10 @@ func InitDB() *sql.DB {
 
 	dbURI := fmt.Sprintf("user=%s password=%s host=%s port=%s dbname=%s", dbConfig.User, dbConfig.Password, dbConfig.Host, dbConfig.Port, dbConfig.Name)
 
-	db, err := sql.Open("postgres", dbURI)
+	connection, err := gorm.Open(postgres.Open(dbURI), &gorm.Config{})
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	return db
+	return connection
 }

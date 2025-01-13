@@ -1,6 +1,7 @@
 package main
 
 import (
+	"layered-template/config"
 	"layered-template/routers"
 	"log"
 	"os"
@@ -13,39 +14,39 @@ import (
 func main() {
 	godotenv.Load()
 
+	config.InitEnvCheck()
+
 	port := os.Getenv("PORT")
 	environment := os.Getenv("ENVIRONMENT")
 
 	r := gin.New()
 	r.Use(gin.Logger())
 
-	config := cors.DefaultConfig()
-	config.AllowOrigins = []string{"*"}
-	config.AllowMethods = []string{"GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"}
-	config.AllowHeaders = []string{"*"}
-	config.ExposeHeaders = []string{"Content-Length"}
-	config.AllowCredentials = true
-	r.Use(cors.New(config))
+	corsConfig := cors.DefaultConfig()
+	corsConfig.AllowOrigins = []string{"*"}
+	corsConfig.AllowMethods = []string{"GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"}
+	corsConfig.AllowHeaders = []string{"*"}
+	corsConfig.ExposeHeaders = []string{"Content-Length"}
+	corsConfig.AllowCredentials = true
+	r.Use(cors.New(corsConfig))
 
 	api := r.Group("/api")
-	routers.CompRouter(api)
+	routers.CompRouters(api)
 
-	if environment == "production" {
-		host := "0.0.0.0"
-		server := host + ":" + port
-		err := r.Run(server)
-		if err != nil {
-			log.Fatal("Error starting the server: ", err)
-		}
-	} else if environment == "development" {
-		host := "localhost"
-		server := host + ":" + port
-		err := r.Run(server)
-		if err != nil {
-			log.Fatal("Error starting the server: ", err)
-		}
-	} else {
-		log.Fatal("ENV ERROR: {ENVIRONMENT} UNKNOWN")
+	var host string
+	switch environment {
+	case "development":
+		host = "localhost"
+	case "production":
+		host = "0.0.0.0"
+	default:
+		panic("ENV ERROR: {ENVIRONMENT} UNKNOWN")
+	}
+
+	server := host + ":" + port
+	err := r.Run(server)
+	if err != nil {
+		log.Fatal("Error starting the server: ", err)
 	}
 
 	log.Println("Server started on port :" + port)
