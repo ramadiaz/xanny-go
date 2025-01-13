@@ -2,10 +2,10 @@ package routers
 
 import (
 	"net/http"
-	"xanny-go-template/config"
+	"xanny-go-template/pkg/config"
 	"xanny-go-template/injectors"
-	"xanny-go-template/middleware"
-	"xanny-go-template/models/dto"
+	"xanny-go-template/pkg/middleware"
+	"xanny-go-template/dto"
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"

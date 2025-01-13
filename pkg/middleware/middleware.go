@@ -7,9 +7,9 @@ import (
 	"net/url"
 	"os"
 	"strings"
-	"xanny-go-template/exceptions"
-	"xanny-go-template/models/database"
-	"xanny-go-template/models/dto"
+	"xanny-go-template/models"
+	"xanny-go-template/dto"
+	"xanny-go-template/pkg/exceptions"
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
@@ -113,7 +113,7 @@ func ClientTracker(db *gorm.DB) gin.HandlerFunc {
 			RawQuery: rawQuery,
 		}
 
-		data := database.Client{
+		data := models.Client{
 			IP:      clientIP,
 			Browser: name,
 			Version: version,

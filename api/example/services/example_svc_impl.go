@@ -1,10 +1,10 @@
 package services
 
 import (
-	"xanny-go-template/example/repositories"
-	"xanny-go-template/exceptions"
-	"xanny-go-template/mapper"
-	"xanny-go-template/models/dto"
+	"xanny-go-template/api/example/repositories"
+	"xanny-go-template/dto"
+	"xanny-go-template/pkg/exceptions"
+	"xanny-go-template/pkg/mapper"
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"

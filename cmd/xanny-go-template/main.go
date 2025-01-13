@@ -3,7 +3,7 @@ package main
 import (
 	"log"
 	"os"
-	"xanny-go-template/config"
+	"xanny-go-template/pkg/config"
 	"xanny-go-template/routers"
 
 	"github.com/gin-contrib/cors"

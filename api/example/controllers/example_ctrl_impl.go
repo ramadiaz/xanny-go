@@ -2,9 +2,9 @@ package controllers
 
 import (
 	"net/http"
-	"xanny-go-template/example/services"
-	"xanny-go-template/exceptions"
-	"xanny-go-template/models/dto"
+	"xanny-go-template/api/example/services"
+	"xanny-go-template/dto"
+	"xanny-go-template/pkg/exceptions"
 
 	"github.com/gin-gonic/gin"
 )
