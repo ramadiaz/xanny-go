@@ -93,12 +93,15 @@ Before you begin, ensure you have the following installed on your system:
    Set up your environment variables by creating a `.env` file in the root of the project. Here's an example:
 
    ```bash
-   DB_HOST=localhost
-   DB_PORT=5432
-   DB_USER=your-username
-   DB_PASSWORD=your-password
-   DB_NAME=xanny_db
+   DB_HOST=your-db-host
+   DB_PORT=your-db-port
+   DB_USER=your-db-username
+   DB_PASSWORD=your-db-password
+   DB_NAME=xanny-db
+   PORT=your-desired-port
+
    JWT_SECRET=your-jwt-secret-key
+   ENVIRONMENT=development
    ```
 
    Replace the values with your own database connection details and secret key.
@@ -117,7 +120,7 @@ Before you begin, ensure you have the following installed on your system:
    make run
    ```
 
-   This will start the server, and the API will be accessible at `http://localhost:8080` by default.
+   This will start the server, and the API will be accessible at `http://localhost:<PORT>`.
 
 ### Optional: Building the Application
 
