@@ -215,6 +215,6 @@ Distributed under the Unlicense License. See `LICENSE.txt` for more information.
 
 Rama Diaz - [@ramadiazr](https://instagram.com/ramadiazr) - ramadiaz221@gmail.com
 
-Project Link: [https://github.com/ramadaiz/xanny-go-template](https://github.com/ramadaiz/xanny-go-template)
+Project Link: [https://github.com/ramadiaz/xanny-go-template](https://github.com/ramadaiz/xanny-go-template)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
