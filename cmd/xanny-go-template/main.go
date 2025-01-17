@@ -4,10 +4,14 @@ import (
 	"log"
 	"os"
 	"xanny-go-template/pkg/config"
+	"xanny-go-template/pkg/middleware"
 	"xanny-go-template/routers"
+
+	internalRouters "xanny-go-template/internal/routers"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
+	"github.com/go-playground/validator/v10"
 	"github.com/joho/godotenv"
 )
 
@@ -30,8 +34,17 @@ func main() {
 	corsConfig.AllowCredentials = true
 	r.Use(cors.New(corsConfig))
 
+	db := config.InitDB()
+	validate := validator.New(validator.WithRequiredStructEnabled())
+
+	r.Use(middleware.ClientTracker(db))
+	r.Use(middleware.GzipResponseMiddleware())
+
+	internal := r.Group("/internal")
+	internalRouters.InternalRouters(internal, db, validate)
+
 	api := r.Group("/api")
-	routers.CompRouters(api)
+	routers.CompRouters(api, db, validate)
 
 	var host string
 	switch environment {

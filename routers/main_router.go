@@ -2,23 +2,16 @@ package routers
 
 import (
 	"net/http"
-	"xanny-go-template/pkg/config"
-	"xanny-go-template/injectors"
-	"xanny-go-template/pkg/middleware"
 	"xanny-go-template/dto"
+	"xanny-go-template/injectors"
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
+	"gorm.io/gorm"
 )
 
-func CompRouters(api *gin.RouterGroup) {
-	db := config.InitDB()
-	validate := validator.New(validator.WithRequiredStructEnabled())
-
-	api.Use(middleware.ClientTracker(db))
-	api.Use(middleware.GzipResponseMiddleware())
-
-	api.GET("/ping", func(ctx *gin.Context) {
+func CompRouters(r *gin.RouterGroup, db *gorm.DB, validate *validator.Validate) {
+	r.GET("/ping", func(ctx *gin.Context) {
 		ctx.JSON(http.StatusOK, dto.Response{
 			Status: http.StatusOK,
 			Message:   "pong",
@@ -27,5 +20,5 @@ func CompRouters(api *gin.RouterGroup) {
 
 	exampleController := injectors.InitializeExampleController(db, validate)
 
-	ExampleRoutes(api, exampleController)
+	ExampleRoutes(r, exampleController)
 }

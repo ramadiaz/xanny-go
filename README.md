@@ -102,6 +102,9 @@ Before you begin, ensure you have the following installed on your system:
 
    JWT_SECRET=your-jwt-secret-key
    ENVIRONMENT=development
+
+   ADMIN_USERNAME=your-internal-admin-username
+   ADMIN_PASSWORD=your-internal-admin-password
    ```
 
    Replace the values with your own database connection details and secret key.

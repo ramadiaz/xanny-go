@@ -39,3 +39,7 @@ env-dev:
 # Generate wire dependencies
 wire:
 	wire gen ./injectors
+
+# Generate wire dependencies for internal
+wire-internal:
+	wire gen ./internal/injectors
