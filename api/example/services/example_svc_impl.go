@@ -2,7 +2,7 @@ package services
 
 import (
 	"xanny-go-template/api/example/repositories"
-	"xanny-go-template/dto"
+	"xanny-go-template/api/example/dto"
 	"xanny-go-template/pkg/exceptions"
 	"xanny-go-template/pkg/mapper"
 

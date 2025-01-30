@@ -3,12 +3,15 @@ package main
 import (
 	"log"
 	"os"
+	"time"
 	"xanny-go-template/pkg/config"
 	"xanny-go-template/pkg/middleware"
 	"xanny-go-template/routers"
 
 	internalRouters "xanny-go-template/internal/routers"
 
+	"github.com/didip/tollbooth/v7"
+	"github.com/didip/tollbooth/v7/limiter"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
@@ -36,9 +39,11 @@ func main() {
 
 	db := config.InitDB()
 	validate := validator.New(validator.WithRequiredStructEnabled())
+	lmt := tollbooth.NewLimiter(5, &limiter.ExpirableOptions{DefaultExpirationTTL: time.Second})
 
 	r.Use(middleware.ClientTracker(db))
 	r.Use(middleware.GzipResponseMiddleware())
+	r.Use(middleware.RateLimitMiddleware(lmt))
 
 	internal := r.Group("/internal")
 	internalRouters.InternalRouters(internal, db, validate)
