@@ -5,6 +5,7 @@ import (
 	"os"
 	"time"
 	"xanny-go-template/pkg/config"
+	"xanny-go-template/pkg/helpers"
 	"xanny-go-template/pkg/middleware"
 	"xanny-go-template/routers"
 
@@ -20,9 +21,9 @@ import (
 
 func main() {
 	godotenv.Load()
-
 	config.InitEnvCheck()
 
+	helpers.LogStartup()
 	port := os.Getenv("PORT")
 	environment := os.Getenv("ENVIRONMENT")
 

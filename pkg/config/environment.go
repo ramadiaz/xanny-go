@@ -36,9 +36,9 @@ func InitEnvCheck() {
 
 	isEmpty, emptyFields := checkEmptyFields(environment)
 	if isEmpty {
-		log.Panicln("ERROR: The following environment variables are missing or empty:", emptyFields)
+		log.Panicln("[CONFIG-debug] [ERROR] The following environment variables are missing or empty:", emptyFields)
 	} else {
-		fmt.Println("INFO: All environment variables are set")
+		fmt.Println("[CONFIG-debug] All environment variables are set")
 	}
 }
 
