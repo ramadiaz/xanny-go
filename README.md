@@ -1,6 +1,6 @@
 <a id="readme-top"></a>
 
-[![Go Version](https://img.shields.io/badge/Go-1.22.1-blue?logo=go&logoColor=fff)](https://golang.org) [![Gin Framework](https://img.shields.io/badge/Gin-1.10.0-blue?logo=gin&logoColor=fff)](https://gin-gonic.com/) [![GORM](https://img.shields.io/badge/GORM-ORM-yellow)](https://gorm.io/) [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-17-blue?logo=postgresql&logoColor=fff)](https://www.postgresql.org/) [![Validator](https://img.shields.io/badge/Validator-v10.20.0-green)](https://github.com/go-playground/validator) [![Mapstructure](https://img.shields.io/badge/Mapstructure-v2.2.1-6f42c1)](https://github.com/go-viper/mapstructure) [![Wire](https://img.shields.io/badge/Google%20Wire-v0.6.0-blue?logo=google&logoColor=fff)](https://github.com/google/wire) [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+[![Go Version](https://img.shields.io/badge/Go-1.24.2-blue?logo=go&logoColor=fff)](https://golang.org) [![Gin Framework](https://img.shields.io/badge/Gin-1.10.0-blue?logo=gin&logoColor=fff)](https://gin-gonic.com/) [![GORM](https://img.shields.io/badge/GORM-ORM-yellow)](https://gorm.io/) [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-17-blue?logo=postgresql&logoColor=fff)](https://www.postgresql.org/) [![Validator](https://img.shields.io/badge/Validator-v10.20.0-green)](https://github.com/go-playground/validator) [![Mapstructure](https://img.shields.io/badge/Mapstructure-v2.2.1-6f42c1)](https://github.com/go-viper/mapstructure) [![Wire](https://img.shields.io/badge/Google%20Wire-v0.6.0-blue?logo=google&logoColor=fff)](https://github.com/google/wire) [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
 <br />
 <br />
@@ -68,7 +68,7 @@ To get a local copy of Xanny Go Template up and running on your machine, follow 
 
 Before you begin, ensure you have the following installed on your system:
 
-- **Go (Golang)**: Version 1.22.1 or higher. You can download it from [Go's official website](https://golang.org/dl/).
+- **Go (Golang)**: Version 1.24.2 or higher. You can download it from [Go's official website](https://golang.org/dl/).
 - **Database**: You need a running instance of a relational database (e.g., PostgreSQL, MySQL, or MSSQL). Make sure to set up the database and configure the connection.
 - **Make**: Optionally, you can install [Make](https://www.gnu.org/software/make/) for automating tasks like building, running migrations, etc.
 
