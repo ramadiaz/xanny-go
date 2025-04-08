@@ -1,11 +1,11 @@
-package helpers
+package logger
 
 import (
 	"fmt"
 	"github.com/common-nighthawk/go-figure"
 )
 
-func LogStartup() {
+func Startup() {
 	fmt.Print("\n\n")
 	figure.NewFigure("XANNY GO!", "doom", true).Print()
 	fmt.Print("\n\n")
