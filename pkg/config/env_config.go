@@ -1,10 +1,9 @@
 package config
 
 import (
-	"fmt"
-	"log"
 	"os"
 	"reflect"
+	"xanny-go-template/pkg/logger"
 )
 
 type Env struct {
@@ -21,6 +20,7 @@ type Env struct {
 }
 
 func InitEnvCheck() {
+	logger.Info("Checking environment variables...")
 	environment := Env{
 		DB_USER:        os.Getenv("DB_USER"),
 		DB_PASSWORD:    os.Getenv("DB_PASSWORD"),
@@ -36,9 +36,9 @@ func InitEnvCheck() {
 
 	isEmpty, emptyFields := checkEmptyFields(environment)
 	if isEmpty {
-		log.Panicln("[CONFIG-debug] [ERROR] The following environment variables are missing or empty:", emptyFields)
+		logger.PanicError("Missing environment variables: %v", emptyFields)
 	} else {
-		fmt.Println("[CONFIG-debug] All environment variables are set")
+		logger.Info("Environment variables are set!")
 	}
 }
 

@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"time"
+	"xanny-go-template/pkg/logger"
 
 	"github.com/joho/godotenv"
 	"gorm.io/driver/postgres"
@@ -20,6 +22,8 @@ type DBConfig struct {
 
 func InitDB() *gorm.DB {
 	godotenv.Load()
+	logger.Info("Initializing database connection...")
+	start := time.Now()
 
 	dbConfig := DBConfig{
 		User:     os.Getenv("DB_USER"),
@@ -30,11 +34,13 @@ func InitDB() *gorm.DB {
 	}
 
 	dbURI := fmt.Sprintf("user=%s password=%s host=%s port=%s dbname=%s", dbConfig.User, dbConfig.Password, dbConfig.Host, dbConfig.Port, dbConfig.Name)
-
 	connection, err := gorm.Open(postgres.Open(dbURI), &gorm.Config{})
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	elapsed := time.Since(start)
+	logger.Info("Connected to database in %s", elapsed)
 
 	return connection
 }
