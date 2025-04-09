@@ -32,5 +32,6 @@ func Error(msg string, args ...interface{}) {
 }
 
 func PanicError(msg string, args ...interface{}) {
-	panicLogger.Panicf(msg, args...)
+	panicLogger.Printf(msg, args...)
+	panic("something went wrong, check panic log")
 }
