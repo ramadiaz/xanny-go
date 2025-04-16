@@ -12,6 +12,6 @@ COPY . .
 
 RUN go build -o main cmd/xanny-go-template/main.go
 
-EXPOSE 8013
+EXPOSE ${PORT}
 
 CMD ["./main"]
