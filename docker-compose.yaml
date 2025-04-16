@@ -1,11 +1,18 @@
 services:
-  app:
+  xanny-go-template:
+    container_name: xanny-go-template
     build:
       context: .
       dockerfile: Dockerfile
+    image: "xanny-go-template:1.0.4"
     dns:
       - 8.8.8.8
       - 1.1.1.1
-    container_name: xanny-go-template
     ports:
-      - "8013:8013"
+      - "${PORT}:${PORT}"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:${PORT}/api/ping"]
+      interval: 1m30s
+      timeout: 30s
+      retries: 5
+      start_period: 30s
