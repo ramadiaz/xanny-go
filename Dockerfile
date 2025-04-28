@@ -23,6 +23,7 @@ WORKDIR /app
 
 # Copy only the final binary from the builder stage
 COPY --from=builder /app/main .
+COPY --from=builder /app/emails/templates/* ./emails/templates/
 
 # Expose the app port (set at runtime via env var)
 EXPOSE ${PORT}
