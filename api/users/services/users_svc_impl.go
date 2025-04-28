@@ -1,8 +1,13 @@
 package services
 
 import (
+	"xanny-go-template/api/users/dto"
 	"xanny-go-template/api/users/repositories"
+	"xanny-go-template/models"
+	"xanny-go-template/pkg/exceptions"
+	"xanny-go-template/pkg/helpers"
 
+	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
 	"gorm.io/gorm"
 )
@@ -19,4 +24,29 @@ func NewComponentServices(compRepositories repositories.CompRepositories, db *go
 		DB:       db,
 		validate: validate,
 	}
+}
+
+func (s *CompServicesImpl) Create(ctx *gin.Context, data dto.Users) *exceptions.Exception {
+	validateErr := s.validate.Struct(data)
+	if validateErr != nil {
+		return exceptions.NewValidationException(validateErr)
+	}
+
+	tx := s.DB.Begin()
+	defer helpers.CommitOrRollback(tx)
+
+	hashedPassword, err := helpers.HashPassword(data.Passoword)
+	if err != nil {
+		return err
+	}
+
+	err = s.repo.Create(ctx, tx, models.Users{
+		Email:          data.Email,
+		HashedPassword: hashedPassword,
+	})
+	if err != nil {
+		return err
+	}
+
+	return nil
 }

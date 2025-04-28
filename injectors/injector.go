@@ -6,22 +6,22 @@
 package injectors
 
 import (
-	exampleControllers "xanny-go-template/api/example/controllers"
-	exampleRepositories "xanny-go-template/api/example/repositories"
-	exampleServices "xanny-go-template/api/example/services"
+	userControllers "xanny-go-template/api/users/controllers"
+	userRepositories "xanny-go-template/api/users/repositories"
+	userServices "xanny-go-template/api/users/services"
 
 	"github.com/go-playground/validator/v10"
 	"github.com/google/wire"
 	"gorm.io/gorm"
 )
 
-var exampleFeatureSet = wire.NewSet(
-	exampleRepositories.NewComponentRepository,
-	exampleServices.NewComponentServices,
-	exampleControllers.NewCompController,
+var userFeatureSet = wire.NewSet(
+	userRepositories.NewComponentRepository,
+	userServices.NewComponentServices,
+	userControllers.NewCompController,
 )
 
-func InitializeExampleController(db *gorm.DB, validate *validator.Validate) exampleControllers.CompControllers {
-	wire.Build(exampleFeatureSet)
+func InitializeUserController(db *gorm.DB, validate *validator.Validate) userControllers.CompControllers {
+	wire.Build(userFeatureSet)
 	return nil
 }

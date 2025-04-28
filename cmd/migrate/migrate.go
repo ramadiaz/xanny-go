@@ -9,8 +9,8 @@ func main() {
 	db := config.InitDB()
 
 	err := db.AutoMigrate(
-		&models.Client{},
-		&models.Example{},
+		&models.Clients{},
+		&models.Users{},
 	)
 	if err != nil {
 		panic("failed to migrate models: " + err.Error())

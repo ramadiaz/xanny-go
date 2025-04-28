@@ -27,7 +27,7 @@ func ClientTracker(db *gorm.DB) gin.HandlerFunc {
 			RawQuery: rawQuery,
 		}
 
-		data := models.Client{
+		data := models.Clients{
 			IP:      clientIP,
 			Browser: name,
 			Version: version,

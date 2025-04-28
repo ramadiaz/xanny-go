@@ -2,7 +2,7 @@ package models
 
 import "gorm.io/gorm"
 
-type Client struct {
+type Clients struct {
 	gorm.Model
 	IP        string
 	Browser   string
