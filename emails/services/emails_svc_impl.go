@@ -1,7 +1,8 @@
 package emails
 
 import (
-	"fmt"
+	"bytes"
+	"html/template"
 	"net/http"
 	"os"
 	"strconv"
@@ -38,25 +39,20 @@ func SendEmail(data dto.EmailRequest) *exceptions.Exception {
 }
 
 func ExampleEmail(data dto.EmailExample) *exceptions.Exception {
-	body := fmt.Sprintf(
-		`<!DOCTYPE html>
-			<html lang="en">
-			<head>
-				<meta charset="UTF-8" />
-				<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-				<link rel="icon" type="img" href="/tixchain-logo.png" />
-				<title>Email Example</title>
-			</head>
-			<body>
-				<p>%s</p>
-			</body>
-			</html>
-		`, data.Body)
+	tmpl, exc := template.ParseFiles("emails/templates/example.html")
+	if exc != nil {
+		return exceptions.NewException(http.StatusInternalServerError, exc.Error())
+	}
+
+	var body bytes.Buffer
+	if exc := tmpl.Execute(&body, data); exc != nil {
+		return exceptions.NewException(http.StatusInternalServerError, exc.Error())
+	}
 
 	emailData := dto.EmailRequest{
 		Email:   data.Email,
 		Subject: data.Subject,
-		Body:    body,
+		Body:    body.String(),
 	}
 
 	err := SendEmail(emailData)

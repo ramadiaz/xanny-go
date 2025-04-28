@@ -7,6 +7,7 @@ type EmailRequest struct {
 }
 
 type EmailExample struct {
+	Message string
 	Email   string
 	Subject string
 	Body    string
