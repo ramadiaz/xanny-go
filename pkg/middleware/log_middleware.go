@@ -11,32 +11,34 @@ import (
 
 func ClientTracker(db *gorm.DB) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		clientIP := c.ClientIP()
+		go func() {
+			clientIP := c.ClientIP()
 
-		userAgent := c.Request.Header.Get("User-Agent")
-		ua := user_agent.New(userAgent)
-		name, version := ua.Browser()
+			userAgent := c.Request.Header.Get("User-Agent")
+			ua := user_agent.New(userAgent)
+			name, version := ua.Browser()
 
-		referer := c.Request.Referer()
+			referer := c.Request.Referer()
 
-		path := c.Request.URL.Path
-		rawQuery := c.Request.URL.RawQuery
+			path := c.Request.URL.Path
+			rawQuery := c.Request.URL.RawQuery
 
-		fullURL := url.URL{
-			Path:     path,
-			RawQuery: rawQuery,
-		}
+			fullURL := url.URL{
+				Path:     path,
+				RawQuery: rawQuery,
+			}
 
-		data := models.Clients{
-			IP:      clientIP,
-			Browser: name,
-			Version: version,
-			OS:      ua.OS(),
-			Device:  ua.Platform(),
-			Origin:  referer,
-			API:     fullURL.String(),
-		}
+			data := models.Clients{
+				IP:      clientIP,
+				Browser: name,
+				Version: version,
+				OS:      ua.OS(),
+				Device:  ua.Platform(),
+				Origin:  referer,
+				API:     fullURL.String(),
+			}
 
-		go db.Create(&data)
+			db.Create(&data)
+		}()
 	}
 }
