@@ -14,6 +14,10 @@ run:
 	go mod tidy
 	go run cmd/xanny-go-template/main.go
 
+# Run the development server
+dev:
+	air --build.cmd "go build -o bin/dev-bin cmd/xanny-go-template/main.go" --build.bin "./bin/dev-bin"
+
 # Build the application binary
 build:
 	go build -o bin/xanny-go-template ./cmd/xanny-go-template
