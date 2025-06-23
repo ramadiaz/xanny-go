@@ -17,6 +17,7 @@ type Env struct {
 	ENVIRONMENT    string
 	ADMIN_USERNAME string
 	ADMIN_PASSWORD string
+	// FONNTE_API_KEY string
 }
 
 func InitEnvCheck() {
@@ -32,6 +33,7 @@ func InitEnvCheck() {
 		ENVIRONMENT:    os.Getenv("ENVIRONMENT"),
 		ADMIN_USERNAME: os.Getenv("ADMIN_USERNAME"),
 		ADMIN_PASSWORD: os.Getenv("ADMIN_PASSWORD"),
+		// FONNTE_API_KEY: os.Getenv("FONNTE_API_KEY"),
 	}
 
 	isEmpty, emptyFields := checkEmptyFields(environment)
