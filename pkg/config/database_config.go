@@ -10,6 +10,7 @@ import (
 	"github.com/joho/godotenv"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
+	GORMLogger "gorm.io/gorm/logger"
 )
 
 type DBConfig struct {
@@ -34,7 +35,9 @@ func InitDB() *gorm.DB {
 	}
 
 	dbURI := fmt.Sprintf("user=%s password=%s host=%s port=%s dbname=%s", dbConfig.User, dbConfig.Password, dbConfig.Host, dbConfig.Port, dbConfig.Name)
-	connection, err := gorm.Open(postgres.Open(dbURI), &gorm.Config{})
+	connection, err := gorm.Open(postgres.Open(dbURI), &gorm.Config{
+		Logger: GORMLogger.Default.LogMode(GORMLogger.Error),
+	})
 	if err != nil {
 		log.Fatal(err)
 	}

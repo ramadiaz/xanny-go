@@ -30,7 +30,7 @@ func main() {
 	environment := os.Getenv("ENVIRONMENT")
 
 	r := gin.New()
-	r.Use(gin.Logger())
+	r.Use(middleware.RequestResponseLogger())
 
 	corsConfig := cors.DefaultConfig()
 	corsConfig.AllowOrigins = []string{"*"}
