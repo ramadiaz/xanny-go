@@ -27,6 +27,189 @@
 
 **Xanny Go Template** is a robust and scalable boilerplate for building RESTful APIs using Go (Golang). Designed with best practices and modern development in mind, this template serves as a starting point for backend projects, enabling developers to quickly set up and customize their API solutions.
 
+---
+
+## Project Structure & Features
+
+### Directory Structure
+
+```
+.
+├── api
+│   ├── blueprint
+│   │   ├── controllers
+│   │   │   ├── blueprint_ctrl.go
+│   │   │   └── blueprint_ctrl_impl.go
+│   │   ├── dto
+│   │   │   └── response.go
+│   │   ├── repositories
+│   │   │   ├── blueprint_repo.go
+│   │   │   └── blueprint_repo_impl.go
+│   │   └── services
+│   │       ├── blueprint_svc.go
+│   │       └── blueprint_svc_impl.go
+│   └── users
+│       ├── controllers
+│       │   ├── users_ctrl.go
+│       │   └── users_ctrl_impl.go
+│       ├── dto
+│       │   ├── request.go
+│       │   └── response.go
+│       ├── repositories
+│       │   ├── users_repo.go
+│       │   └── users_repo_impl.go
+│       └── services
+│           ├── users_svc.go
+│           └── users_svc_impl.go
+├── cmd
+│   ├── migrate
+│   │   └── migrate.go
+│   └── server
+│       └── main.go
+├── docs
+│   ├── docs.go
+│   ├── README.md
+│   ├── swagger.json
+│   └── swagger.yaml
+├── emails
+│   ├── dto
+│   │   └── input.go
+│   ├── services
+│   │   └── emails_svc_impl.go
+│   └── templates
+│       └── example.html
+├── injectors
+│   ├── injector.go
+│   └── wire_gen.go
+├── internal
+│   ├── auth
+│   │   ├── controllers
+│   │   │   ├── internal_auth_ctrl.go
+│   │   │   └── internal_auth_ctrl_impl.go
+│   │   ├── dto
+│   │   │   ├── request.go
+│   │   │   └── response.go
+│   │   └── services
+│   │       ├── internal_auth_svc.go
+│   │       └── internal_auth_svc_impl.go
+│   ├── injectors
+│   │   ├── injector.go
+│   │   └── wire_gen.go
+│   └── routers
+│       ├── auth_router.go
+│       └── main_router.go
+├── models
+│   ├── clients_model.go
+│   ├── refresh_token_model.go
+│   └── users_model.go
+├── pkg
+│   ├── cache
+│   │   ├── cache.go
+│   │   ├── controller.go
+│   │   ├── example.go
+│   │   ├── factory.go
+│   │   ├── integration.go
+│   │   ├── memory_cache.go
+│   │   ├── middleware.go
+│   │   ├── README.md
+│   │   ├── redis_cache.go
+│   │   ├── router.go
+│   │   └── service.go
+│   ├── config
+│   │   ├── database_config.go
+│   │   └── env_config.go
+│   ├── exceptions
+│   │   ├── database_exception.go
+│   │   ├── exception.go
+│   │   └── variable.go
+│   ├── helpers
+│   │   ├── database_helper.go
+│   │   ├── example_helper.go
+│   │   ├── hash_helper.go
+│   │   ├── health_helper.go
+│   │   └── redis_helper.go
+│   ├── logger
+│   │   ├── general_log.go
+│   │   └── startup_log.go
+│   ├── mapper
+│   │   └── users_mapper.go
+│   ├── middleware
+│   │   ├── auth_middleware.go
+│   │   ├── cache_middleware.go
+│   │   ├── gzip_middleware.go
+│   │   ├── internal_middleware.go
+│   │   ├── log_middleware.go
+│   │   └── ratelimit_middleware.go
+│   └── whatsapp
+│       └── fonnte.go
+├── routers
+│   ├── main_router.go
+│   └── users_router.go
+├── LICENSE.txt
+├── SWAGGER_SETUP.md
+├── docker-compose.yaml
+├── Dockerfile
+├── go.mod
+├── go.sum
+├── makefile
+└── tmp/
+```
+
+### Main Features & Modules
+
+#### 1. Modular API (Blueprint & Users)
+- Each module (blueprint, users) consists of controller, service, repository, and DTO (Data Transfer Object).
+- Example endpoints: user CRUD, login, refresh token, token blacklist, etc.
+
+#### 2. Internal Auth
+- Internal module for admin/internal authentication (internal/auth).
+- Supports internal login, JWT validation, etc.
+
+#### 3. Email Service
+- Email sending with HTML template (emails/services, emails/templates).
+- DTO for email input.
+
+#### 4. Caching
+- Supports memory cache & Redis (pkg/cache).
+- Cache middleware, controller, service, and Redis integration.
+
+#### 5. Middleware
+- Authentication (auth_middleware.go)
+- Rate Limiting (ratelimit_middleware.go)
+- Logging (log_middleware.go)
+- Gzip Compression (gzip_middleware.go)
+- Internal Middleware, Cache Middleware
+
+#### 6. Database & ORM
+- User, client, refresh token models (models/)
+- GORM ORM, auto-migration (cmd/migrate, pkg/config)
+- Exception & helper for database
+
+#### 7. Dependency Injection
+- Using Google Wire (injectors/, internal/injectors/)
+
+#### 8. API Documentation
+- Swagger (docs/swagger.yaml, docs/swagger.json)
+- Setup instructions in SWAGGER_SETUP.md
+
+#### 9. Utilities & Helpers
+- Hashing, health check, redis helper, etc (pkg/helpers)
+- Logger (pkg/logger)
+- Mapper (pkg/mapper)
+- Exception handler (pkg/exceptions)
+
+#### 10. Deployment & Automation
+- Dockerfile & docker-compose.yaml
+- Makefile for build, run, migrate, etc
+
+#### 11. Routers
+- Main router, users router, internal routers (routers/, internal/routers/)
+
+#### 12. Others
+- Modular structure, clean code, scalable, ready to use for REST API
+
+---
+
 ### Key Features
 
 - **Modular Architecture**: Organized with a clean directory structure, separating concerns for better maintainability and scalability.
@@ -93,18 +276,21 @@ Before you begin, ensure you have the following installed on your system:
    Set up your environment variables by creating a `.env` file in the root of the project. Here's an example:
 
    ```bash
-   DB_HOST=your-db-host
-   DB_PORT=your-db-port
    DB_USER=your-db-username
    DB_PASSWORD=your-db-password
-   DB_NAME=xanny-db
-   PORT=your-desired-port
-
-   JWT_SECRET=your-jwt-secret-key
-   ENVIRONMENT=development
-
-   ADMIN_USERNAME=your-internal-admin-username
-   ADMIN_PASSWORD=your-internal-admin-password
+   DB_HOST=your-db-host
+   DB_PORT=your-db-port
+   DB_NAME=your-db-name
+   PORT=your-desire-port
+   JWT_SECRET=your-jwt-secret
+   
+   ENVIRONMENT=production/development
+   
+   ADMIN_USERNAME=your-desire-username
+   ADMIN_PASSWORD=your-desire-password
+   
+   REDIS_ADDR=your-redis-address
+   REDIS_PASS=your-redis-password
    ```
 
    Replace the values with your own database connection details and secret key.
@@ -142,20 +328,20 @@ This will compile the application into a binary located in the `bin/` folder. Yo
 
 ## Usage
 
-Once you have set up the project and run the application, you can access the default API endpoint to verify that the server is working correctly.
+Once you have set up the project and run the application, you can access the default API health check endpoint to verify that the server is working correctly.
 
 ### Default API Endpoint
 
-By default, the API exposes a single endpoint:
+By default, the API exposes a health check endpoint:
 
-- **GET** `/api/ping`
+- **GET** `/api/health`
 
-This endpoint will return a simple JSON response with a status of 200 and a message of "pong."
+This endpoint will return a JSON response with the health status of the application and its dependencies.
 
 #### Example Request
 
 ```bash
-curl http://localhost:<PORT>/api/ping
+curl http://localhost:<PORT>/api/health
 ```
 
 Replace `<PORT>` with the port number specified in your `.env` file.
@@ -164,12 +350,13 @@ Replace `<PORT>` with the port number specified in your `.env` file.
 
 ```json
 {
-  "status": 200,
-  "message": "pong"
+  "status": "healthy",
+  "database": "healthy",
+  "redis": "healthy"
 }
 ```
 
-This response indicates that the server is up and running. You can modify this route or add more routes as needed to expand the functionality of the API.
+This response indicates that the server and its dependencies are up and running. You can modify this route or add more routes as needed to expand the functionality of the API.
 
 ### Customizing the Server Port
 
@@ -185,7 +372,7 @@ Then, restart the application with:
 make run
 ```
 
-The API will now be accessible at `http://localhost:<your-desired-port>/api/ping`.
+The API will now be accessible at `http://localhost:<your-desired-port>/api/health`.
 
 ---
 
