@@ -5,6 +5,8 @@ import (
 	"os"
 	"strings"
 	"xanny-go-template/api/users/dto"
+	"xanny-go-template/api/users/repositories"
+	"xanny-go-template/pkg/config"
 	"xanny-go-template/pkg/exceptions"
 
 	"github.com/dgrijalva/jwt-go"
@@ -14,8 +16,10 @@ import (
 func AuthMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		secret := os.Getenv("JWT_SECRET")
-
 		var secretKey = []byte(secret)
+
+		db := config.InitDB()
+		repo := repositories.NewComponentRepository()
 
 		authHeader := c.GetHeader("Authorization")
 		if authHeader == "" {
@@ -30,6 +34,13 @@ func AuthMiddleware() gin.HandlerFunc {
 		}
 
 		tokenString := authHeaderParts[1]
+
+		isBlacklisted, _ := repo.FindBlacklistedToken(c, db, tokenString)
+		if isBlacklisted {
+			c.AbortWithStatusJSON(http.StatusUnauthorized, exceptions.NewException(http.StatusUnauthorized, "Token is blacklisted"))
+			return
+		}
+
 		claims := jwt.MapClaims{}
 		token, err := jwt.ParseWithClaims(tokenString, claims, func(token *jwt.Token) (interface{}, error) {
 			return secretKey, nil
@@ -46,13 +57,12 @@ func AuthMiddleware() gin.HandlerFunc {
 		}
 
 		user := dto.UserOutput{
-			UUID:   claims["uuid"].(string),
-			Email:  claims["email"].(string),
-			Name:   claims["name"].(string),
+			UUID:  claims["uuid"].(string),
+			Email: claims["email"].(string),
+			Name:  claims["name"].(string),
 		}
 
 		c.Set("user", user)
-
 		c.Next()
 	}
 }
