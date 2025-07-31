@@ -5,9 +5,8 @@ import (
 	"os"
 	"strings"
 	"xanny-go-template/api/users/dto"
-	"xanny-go-template/api/users/repositories"
-	"xanny-go-template/pkg/config"
 	"xanny-go-template/pkg/exceptions"
+	"xanny-go-template/pkg/helpers"
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
@@ -17,9 +16,6 @@ func AuthMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		secret := os.Getenv("JWT_SECRET")
 		var secretKey = []byte(secret)
-
-		db := config.InitDB()
-		repo := repositories.NewComponentRepository()
 
 		authHeader := c.GetHeader("Authorization")
 		if authHeader == "" {
@@ -35,7 +31,7 @@ func AuthMiddleware() gin.HandlerFunc {
 
 		tokenString := authHeaderParts[1]
 
-		isBlacklisted, _ := repo.FindBlacklistedToken(c, db, tokenString)
+		isBlacklisted, _ := helpers.IsTokenBlacklisted(tokenString)
 		if isBlacklisted {
 			c.AbortWithStatusJSON(http.StatusUnauthorized, exceptions.NewException(http.StatusUnauthorized, "Token is blacklisted"))
 			return

@@ -130,7 +130,7 @@ func (s *CompServicesImpl) RefreshToken(ctx *gin.Context, refreshToken string) (
 
 func (s *CompServicesImpl) Logout(ctx *gin.Context, accessToken, refreshToken string) *exceptions.Exception {
 	tx := s.DB.Begin()
-	// Blacklist access token
+	// Blacklist access token ke Redis
 	claims := jwt.MapClaims{}
 	jwtSecret := os.Getenv("JWT_SECRET")
 	_, err := jwt.ParseWithClaims(accessToken, claims, func(token *jwt.Token) (interface{}, error) {
@@ -138,12 +138,7 @@ func (s *CompServicesImpl) Logout(ctx *gin.Context, accessToken, refreshToken st
 	})
 	if err == nil {
 		exp, _ := claims["exp"].(float64)
-		blacklisted := models.BlacklistedToken{
-			Token:     accessToken,
-			ExpiresAt: time.Unix(int64(exp), 0),
-			CreatedAt: time.Now(),
-		}
-		s.repo.CreateBlacklistedToken(ctx, tx, blacklisted)
+		helpers.SetBlacklistedToken(accessToken, time.Unix(int64(exp), 0))
 	}
 	// Delete refresh token
 	s.repo.DeleteRefreshToken(ctx, tx, refreshToken)

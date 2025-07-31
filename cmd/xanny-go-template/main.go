@@ -10,6 +10,7 @@ import (
 	"xanny-go-template/routers"
 
 	internalRouters "xanny-go-template/internal/routers"
+	"xanny-go-template/pkg/helpers"
 
 	"github.com/didip/tollbooth/v7"
 	"github.com/didip/tollbooth/v7/limiter"
@@ -22,6 +23,7 @@ import (
 func main() {
 	godotenv.Load()
 	config.InitEnvCheck()
+	helpers.InitRedis()
 
 	logger.Startup()
 	port := os.Getenv("PORT")
