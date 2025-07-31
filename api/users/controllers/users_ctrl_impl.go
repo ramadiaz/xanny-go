@@ -19,6 +19,17 @@ func NewCompController(compServices services.CompServices) CompControllers {
 	}
 }
 
+// Create godoc
+// @Summary Create a new user
+// @Description Register a new user account
+// @Tags users
+// @Accept json
+// @Produce json
+// @Param user body dto.Users true "User registration data"
+// @Success 201 {object} dto.Response
+// @Failure 400 {object} exceptions.Exception
+// @Failure 409 {object} exceptions.Exception
+// @Router /user/create [post]
 func (h *CompControllersImpl) Create(ctx *gin.Context) {
 	var data dto.Users
 
@@ -40,6 +51,17 @@ func (h *CompControllersImpl) Create(ctx *gin.Context) {
 	})
 }
 
+// Login godoc
+// @Summary User login
+// @Description Authenticate user and return access and refresh tokens
+// @Tags users
+// @Accept json
+// @Produce json
+// @Param login body dto.LoginRequest true "Login credentials"
+// @Success 200 {object} map[string]interface{}
+// @Failure 400 {object} exceptions.Exception
+// @Failure 401 {object} exceptions.Exception
+// @Router /user/login [post]
 func (h *CompControllersImpl) Login(ctx *gin.Context) {
 	var req dto.LoginRequest
 	if err := ctx.ShouldBindJSON(&req); err != nil {
@@ -57,6 +79,17 @@ func (h *CompControllersImpl) Login(ctx *gin.Context) {
 	})
 }
 
+// Refresh godoc
+// @Summary Refresh access token
+// @Description Get a new access token using refresh token
+// @Tags users
+// @Accept json
+// @Produce json
+// @Param refresh body dto.RefreshTokenRequest true "Refresh token"
+// @Success 200 {object} map[string]interface{}
+// @Failure 400 {object} exceptions.Exception
+// @Failure 401 {object} exceptions.Exception
+// @Router /user/refresh [post]
 func (h *CompControllersImpl) Refresh(ctx *gin.Context) {
 	var req dto.RefreshTokenRequest
 	if err := ctx.ShouldBindJSON(&req); err != nil {
@@ -73,6 +106,16 @@ func (h *CompControllersImpl) Refresh(ctx *gin.Context) {
 	})
 }
 
+// Logout godoc
+// @Summary User logout
+// @Description Logout user and invalidate tokens
+// @Tags users
+// @Accept json
+// @Produce json
+// @Param logout body dto.LogoutRequest true "Logout request"
+// @Success 200 {object} map[string]interface{}
+// @Failure 400 {object} exceptions.Exception
+// @Router /user/logout [post]
 func (h *CompControllersImpl) Logout(ctx *gin.Context) {
 	var req dto.LogoutRequest
 	if err := ctx.ShouldBindJSON(&req); err != nil {

@@ -1,0 +1,205 @@
+basePath: /api/v1
+definitions:
+  xanny-go-template_api_users_dto.LoginRequest:
+    properties:
+      email:
+        example: user@example.com
+        type: string
+      password:
+        example: password123
+        type: string
+    required:
+    - email
+    - password
+    type: object
+  xanny-go-template_api_users_dto.LogoutRequest:
+    properties:
+      access_token:
+        example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+        type: string
+      refresh_token:
+        example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+        type: string
+    required:
+    - access_token
+    - refresh_token
+    type: object
+  xanny-go-template_api_users_dto.RefreshTokenRequest:
+    properties:
+      refresh_token:
+        example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+        type: string
+    required:
+    - refresh_token
+    type: object
+  xanny-go-template_api_users_dto.Response:
+    properties:
+      body: {}
+      message:
+        example: success
+        type: string
+      status:
+        example: 200
+        type: integer
+    type: object
+  xanny-go-template_api_users_dto.Users:
+    properties:
+      email:
+        example: user@example.com
+        type: string
+      password:
+        example: password123
+        minLength: 6
+        type: string
+    required:
+    - email
+    - password
+    type: object
+  xanny-go-template_pkg_exceptions.Exception:
+    properties:
+      message:
+        type: string
+      status:
+        type: integer
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: A comprehensive Go API template with authentication, user management,
+    and health monitoring.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Xanny Go Template API
+  version: "1.0"
+paths:
+  /user/create:
+    post:
+      consumes:
+      - application/json
+      description: Register a new user account
+      parameters:
+      - description: User registration data
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/xanny-go-template_api_users_dto.Users'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/xanny-go-template_api_users_dto.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/xanny-go-template_pkg_exceptions.Exception'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/xanny-go-template_pkg_exceptions.Exception'
+      summary: Create a new user
+      tags:
+      - users
+  /user/login:
+    post:
+      consumes:
+      - application/json
+      description: Authenticate user and return access and refresh tokens
+      parameters:
+      - description: Login credentials
+        in: body
+        name: login
+        required: true
+        schema:
+          $ref: '#/definitions/xanny-go-template_api_users_dto.LoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/xanny-go-template_pkg_exceptions.Exception'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/xanny-go-template_pkg_exceptions.Exception'
+      summary: User login
+      tags:
+      - users
+  /user/logout:
+    post:
+      consumes:
+      - application/json
+      description: Logout user and invalidate tokens
+      parameters:
+      - description: Logout request
+        in: body
+        name: logout
+        required: true
+        schema:
+          $ref: '#/definitions/xanny-go-template_api_users_dto.LogoutRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/xanny-go-template_pkg_exceptions.Exception'
+      summary: User logout
+      tags:
+      - users
+  /user/refresh:
+    post:
+      consumes:
+      - application/json
+      description: Get a new access token using refresh token
+      parameters:
+      - description: Refresh token
+        in: body
+        name: refresh
+        required: true
+        schema:
+          $ref: '#/definitions/xanny-go-template_api_users_dto.RefreshTokenRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/xanny-go-template_pkg_exceptions.Exception'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/xanny-go-template_pkg_exceptions.Exception'
+      summary: Refresh access token
+      tags:
+      - users
+securityDefinitions:
+  BearerAuth:
+    description: Type "Bearer" followed by a space and JWT token.
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

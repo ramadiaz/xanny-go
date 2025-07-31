@@ -47,3 +47,11 @@ wire:
 # Generate wire dependencies for internal
 wire-internal:
 	wire gen ./internal/injectors
+
+# Generate Swagger documentation
+swagger:
+	swag init -g cmd/server/main.go -o docs --parseDependency --parseInternal
+
+# Generate Swagger documentation and run server
+swagger-run: swagger
+	go run cmd/server/main.go

@@ -9,16 +9,16 @@ import (
 
 // HealthCheck represents the health status of different services
 type HealthCheck struct {
-	Status    string                   `json:"status"`
-	Timestamp time.Time                `json:"timestamp"`
+	Status    string                   `json:"status" example:"healthy"`
+	Timestamp time.Time                `json:"timestamp" example:"2024-01-01T00:00:00Z"`
 	Services  map[string]ServiceStatus `json:"services"`
 }
 
 // ServiceStatus represents the status of a specific service
 type ServiceStatus struct {
-	Status  string `json:"status"`
-	Message string `json:"message,omitempty"`
-	Latency string `json:"latency,omitempty"`
+	Status  string `json:"status" example:"healthy"`
+	Message string `json:"message,omitempty" example:"Database connection successful"`
+	Latency string `json:"latency,omitempty" example:"1.234ms"`
 }
 
 // CheckDatabaseHealth checks the database connectivity
