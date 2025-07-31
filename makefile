@@ -12,15 +12,15 @@ cp-blueprint:
 # Run the application
 run:
 	go mod tidy
-	go run cmd/xanny-go-template/main.go
+	go run cmd/server/main.go
 
 # Run the development server
 dev:
-	air --build.cmd "go build -o bin/dev-bin cmd/xanny-go-template/main.go" --build.bin "./bin/dev-bin"
+	air --build.cmd "go build -o bin/dev-bin cmd/server/main.go" --build.bin "./bin/dev-bin"
 
 # Build the application binary
 build:
-	go build -o bin/xanny-go-template ./cmd/xanny-go-template
+	go build -o bin/server ./cmd/server
 
 # Run migrations
 migrate:
@@ -28,7 +28,7 @@ migrate:
 
 # Clean the build (remove binaries and build artifacts)
 clean:
-	rm -f bin/xanny-go-template
+	rm -f bin/server
 
 # Change environment to production
 env-prod:
