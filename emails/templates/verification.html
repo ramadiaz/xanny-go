@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Verifikasi Email</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f4f4f4;
+      }
+      .container {
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+      }
+      .header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 30px 20px;
+        text-align: center;
+      }
+      .header h1 {
+        margin: 0;
+        font-size: 28px;
+        font-weight: 300;
+      }
+      .content {
+        padding: 40px 30px;
+      }
+      .greeting {
+        font-size: 18px;
+        margin-bottom: 20px;
+        color: #2c3e50;
+      }
+      .message {
+        font-size: 16px;
+        margin-bottom: 30px;
+        color: #555;
+      }
+      .verification-button {
+        text-align: center;
+        margin: 30px 0;
+      }
+      .verification-button a {
+        display: inline-block;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        text-decoration: none;
+        padding: 15px 30px;
+        border-radius: 50px;
+        font-size: 16px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+      }
+      .verification-button a:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+      }
+      .alternative-link {
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        padding: 20px;
+        margin: 20px 0;
+        border-left: 4px solid #667eea;
+      }
+      .alternative-link p {
+        margin: 0 0 10px 0;
+        font-size: 14px;
+        color: #666;
+      }
+      .alternative-link code {
+        background-color: #e9ecef;
+        padding: 8px;
+        border-radius: 4px;
+        font-size: 12px;
+        word-break: break-all;
+        display: block;
+        color: #495057;
+      }
+      .warning {
+        background-color: #fff3cd;
+        border: 1px solid #ffeaa7;
+        border-radius: 8px;
+        padding: 15px;
+        margin: 20px 0;
+        color: #856404;
+      }
+      .footer {
+        background-color: #f8f9fa;
+        padding: 20px 30px;
+        text-align: center;
+        color: #666;
+        font-size: 14px;
+        border-top: 1px solid #e9ecef;
+      }
+      .footer a {
+        color: #667eea;
+        text-decoration: none;
+      }
+      .divider {
+        height: 2px;
+        background: linear-gradient(90deg, transparent, #667eea, transparent);
+        margin: 30px 0;
+      }
+      @media (max-width: 600px) {
+        body {
+          padding: 10px;
+        }
+        .content {
+          padding: 30px 20px;
+        }
+        .header {
+          padding: 20px;
+        }
+        .header h1 {
+          font-size: 24px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>Xanware</h1>
+        <p>Verifikasi Email Anda</p>
+      </div>
+
+      <div class="content">
+        <div class="greeting">Halo {{.Name}},</div>
+
+        <div class="message">
+          Terima kasih telah mendaftar di <strong>Xanware</strong>!
+          Kami sangat senang Anda bergabung dengan kami.
+        </div>
+
+        <div class="message">
+          Untuk menyelesaikan proses pendaftaran dan mengaktifkan akun Anda,
+          silakan klik tombol verifikasi di bawah ini:
+        </div>
+
+        <div class="verification-button">
+          <a href="{{.VerificationURL}}" target="_blank">
+            ✓ Verifikasi Email Saya
+          </a>
+        </div>
+
+        <div class="alternative-link">
+          <p>
+            Jika tombol di atas tidak berfungsi, copy dan paste link berikut ke
+            browser Anda:
+          </p>
+          <code>{{.VerificationURL}}</code>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="warning">
+          <strong>Penting:</strong> Link verifikasi ini akan kedaluwarsa dalam
+          <strong>24 jam</strong>. Jika Anda tidak memverifikasi email dalam
+          waktu tersebut, Anda mungkin perlu mendaftar ulang.
+        </div>
+
+        <div class="message">
+          Jika Anda tidak membuat akun di Xanware, Anda dapat
+          mengabaikan email ini dengan aman. Akun tidak akan dibuat tanpa
+          verifikasi email.
+        </div>
+      </div>
+
+      <div class="footer">
+        <p>
+          Butuh bantuan? Hubungi tim support kami di
+          <a href="mailto:{{.SupportEmail}}">{{.SupportEmail}}</a>
+        </p>
+        <p>© 2025 Xanware. Semua hak dilindungi undang-undang.</p>
+      </div>
+    </div>
+  </body>
+</html>

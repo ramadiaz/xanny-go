@@ -9,10 +9,12 @@ import (
 type Users struct {
 	gorm.Model
 
-	ID             int64  `gorm:"primaryKey"`
-	UUID           string `gorm:"not null;unique;index"`
-	Email          string `gorm:"not null;unique;index"`
-	HashedPassword string `gorm:"not null"`
+	ID              int64    `gorm:"primaryKey"`
+	UUID            string   `gorm:"not null;unique;index"`
+	Email           string   `gorm:"not null;unique;index"`
+	IsEmailVerified bool     `gorm:"not null;default:false"`
+	HashedPassword  string   `gorm:"not null"`
+	Name            string   `gorm:"not null"`
 
 	CreatedAt time.Time  `gorm:"not null"`
 	UpdatedAt time.Time  `gorm:"not null"`

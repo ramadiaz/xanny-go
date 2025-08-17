@@ -12,3 +12,10 @@ type EmailExample struct {
 	Subject string
 	Body    string
 }
+
+type EmailVerification struct {
+	Email           string
+	Name            string
+	VerificationURL string
+	SupportEmail    string
+}

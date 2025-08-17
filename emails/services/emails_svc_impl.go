@@ -62,3 +62,28 @@ func ExampleEmail(data dto.EmailExample) *exceptions.Exception {
 
 	return nil
 }
+
+func VerificationEmail(data dto.EmailVerification) *exceptions.Exception {
+	tmpl, exc := template.ParseFiles("emails/templates/verification.html")
+	if exc != nil {
+		return exceptions.NewException(http.StatusInternalServerError, exc.Error())
+	}
+
+	var body bytes.Buffer
+	if exc := tmpl.Execute(&body, data); exc != nil {
+		return exceptions.NewException(http.StatusInternalServerError, exc.Error())
+	}
+
+	emailData := dto.EmailRequest{
+		Email:   data.Email,
+		Subject: "[Xanware] Email Verification for Account Activation",
+		Body:    body.String(),
+	}
+
+	err := SendEmail(emailData)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}

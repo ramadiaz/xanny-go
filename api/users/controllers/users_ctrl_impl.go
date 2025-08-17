@@ -51,6 +51,44 @@ func (h *CompControllersImpl) Create(ctx *gin.Context) {
 	})
 }
 
+func (h *CompControllersImpl) ResendVerificationEmail(ctx *gin.Context) {
+	email := ctx.Query("email")
+	if email == "" {
+		ctx.JSON(http.StatusBadRequest, exceptions.NewException(http.StatusBadRequest, "Email is required"))
+		return
+	}
+
+	err := h.services.ResendVerificationEmail(ctx, email)
+	if err != nil {
+		ctx.JSON(err.Status, err)
+		return
+	}
+
+	ctx.JSON(http.StatusOK, dto.Response{
+		Status:  http.StatusOK,
+		Message: "Verification email sent successfully",
+	})
+}
+
+func (h *CompControllersImpl) VerificationEmail(ctx *gin.Context) {
+	token := ctx.Query("token")
+	if token == "" {
+		ctx.JSON(http.StatusBadRequest, exceptions.NewException(http.StatusBadRequest, "Token is required"))
+		return
+	}
+
+	err := h.services.VerificationEmail(ctx, token)
+	if err != nil {
+		ctx.JSON(err.Status, err)
+		return
+	}
+
+	ctx.JSON(http.StatusOK, dto.Response{
+		Status:  http.StatusOK,
+		Message: "Email verified successfully",
+	})
+}
+
 // Login godoc
 // @Summary User login
 // @Description Authenticate user and return access and refresh tokens

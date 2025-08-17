@@ -2,10 +2,10 @@ package dto
 
 // Users represents user registration request
 type Users struct {
-	Email     string `json:"email" example:"user@example.com" binding:"required,email"`
-	Passoword string `json:"password" example:"password123" binding:"required,min=6"`
+	Email     string `json:"email" example:"user@example.com" validate:"required,email"`
+	Name      string `json:"name" validate:"required"`
+	Passoword string `json:"password" example:"password123" validate:"required,min=6"`
 }
-
 // LoginRequest represents user login request
 type LoginRequest struct {
 	Email    string `json:"email" example:"user@example.com" binding:"required,email"`
