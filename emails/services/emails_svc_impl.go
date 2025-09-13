@@ -4,19 +4,19 @@ import (
 	"bytes"
 	"html/template"
 	"net/http"
-	"os"
 	"strconv"
 	"xanny-go/emails/dto"
+	"xanny-go/pkg/config"
 	"xanny-go/pkg/exceptions"
 
 	"gopkg.in/gomail.v2"
 )
 
 func SendEmail(data dto.EmailRequest) *exceptions.Exception {
-	email := os.Getenv("SMTP_EMAIL")
-	password := os.Getenv("SMTP_PASSWORD")
-	server := os.Getenv("SMTP_SERVER")
-	smtpPort := os.Getenv("SMTP_PORT")
+	email := config.GetSMTPEmail()
+	password := config.GetSMTPPassword()
+	server := config.GetSMTPServer()
+	smtpPort := config.GetSMTPPort()
 
 	i, err := strconv.Atoi(smtpPort)
 	if err != nil {

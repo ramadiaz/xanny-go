@@ -2,9 +2,9 @@ package services
 
 import (
 	"net/http"
-	"os"
 	"time"
 	"xanny-go/internal/auth/dto"
+	"xanny-go/pkg/config"
 	"xanny-go/pkg/exceptions"
 
 	"github.com/dgrijalva/jwt-go"
@@ -30,14 +30,14 @@ func (s *CompServicesImpl) Login(ctx *gin.Context, data dto.Login) (*string, *ex
 		return nil, exceptions.NewValidationException(validateErr)
 	}
 
-	ADMIN_USERNAME := os.Getenv("ADMIN_USERNAME")
-	ADMIN_PASSWORD := os.Getenv("ADMIN_PASSWORD")
+	ADMIN_USERNAME := config.GetAdminUsername()
+	ADMIN_PASSWORD := config.GetAdminPassword()
 
 	if data.Username != ADMIN_USERNAME || data.Password != ADMIN_PASSWORD {
 		return nil, exceptions.NewException(http.StatusUnauthorized, exceptions.ErrInvalidCredentials)
 	}
 
-	JWT_SECRET := os.Getenv("JWT_SECRET")
+	INTERNAL_SECRET := config.GetInternalSecret()
 	token := jwt.New(jwt.SigningMethodHS256)
 	claims := token.Claims.(jwt.MapClaims)
 
@@ -45,7 +45,7 @@ func (s *CompServicesImpl) Login(ctx *gin.Context, data dto.Login) (*string, *ex
 
 	claims["exp"] = time.Now().Add(time.Hour * 24 * 7).Unix()
 
-	secretKey := []byte(JWT_SECRET)
+	secretKey := []byte(INTERNAL_SECRET)
 	tokenString, signErr := token.SignedString(secretKey)
 	if signErr != nil {
 		return nil, exceptions.NewException(http.StatusInternalServerError, exceptions.ErrTokenGenerate)

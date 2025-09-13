@@ -2,26 +2,24 @@ package helpers
 
 import (
 	"context"
+	"xanny-go/pkg/config"
 	"time"
 
 	"gorm.io/gorm"
 )
 
-// HealthCheck represents the health status of different services
 type HealthCheck struct {
 	Status    string                   `json:"status" example:"healthy"`
 	Timestamp time.Time                `json:"timestamp" example:"2024-01-01T00:00:00Z"`
 	Services  map[string]ServiceStatus `json:"services"`
 }
 
-// ServiceStatus represents the status of a specific service
 type ServiceStatus struct {
 	Status  string `json:"status" example:"healthy"`
 	Message string `json:"message,omitempty" example:"Database connection successful"`
 	Latency string `json:"latency,omitempty" example:"1.234ms"`
 }
 
-// CheckDatabaseHealth checks the database connectivity
 func CheckDatabaseHealth(db *gorm.DB) ServiceStatus {
 	start := time.Now()
 
@@ -54,11 +52,10 @@ func CheckDatabaseHealth(db *gorm.DB) ServiceStatus {
 	}
 }
 
-// CheckRedisHealth checks the Redis connectivity
 func CheckRedisHealth() ServiceStatus {
 	start := time.Now()
 
-	if redisClient == nil {
+	if config.RedisClient == nil {
 		return ServiceStatus{
 			Status:  "error",
 			Message: "Redis client not initialized",
@@ -68,7 +65,7 @@ func CheckRedisHealth() ServiceStatus {
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 
-	_, err := redisClient.Ping(ctx).Result()
+	_, err := config.RedisClient.Ping(ctx).Result()
 	latency := time.Since(start).String()
 
 	if err != nil {
@@ -86,17 +83,12 @@ func CheckRedisHealth() ServiceStatus {
 	}
 }
 
-// PerformHealthCheck performs a comprehensive health check of all services
 func PerformHealthCheck(db *gorm.DB) HealthCheck {
 	services := make(map[string]ServiceStatus)
 
-	// Check database
 	services["database"] = CheckDatabaseHealth(db)
-
-	// Check Redis
 	services["redis"] = CheckRedisHealth()
 
-	// Determine overall status
 	overallStatus := "healthy"
 	for _, service := range services {
 		if service.Status == "error" {

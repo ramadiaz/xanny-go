@@ -1,4 +1,4 @@
-// @title Xanny Go Template API
+// @title Xanny Go API
 // @version 1.0
 // @description A comprehensive Go API template with authentication, user management, and health monitoring.
 // @termsOfService http://swagger.io/terms/
@@ -35,25 +35,22 @@ import (
 	"xanny-go/routers"
 
 	internalRouters "xanny-go/internal/routers"
-	"xanny-go/pkg/helpers"
 
 	"github.com/didip/tollbooth/v7"
 	"github.com/didip/tollbooth/v7/limiter"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
-	"github.com/joho/godotenv"
 )
 
 func main() {
-	godotenv.Load()
+	config.InitConfig()
+	config.InitRedis()
 	docs.SwaggerInfo.BasePath = "/api"
-	config.InitEnvCheck()
-	helpers.InitRedis()
 
 	logger.Startup()
-	port := os.Getenv("PORT")
-	environment := os.Getenv("ENVIRONMENT")
+	port := config.GetPort()
+	environment := config.GetEnvironment()
 
 	r := gin.New()
 	r.Use(middleware.RequestResponseLogger())

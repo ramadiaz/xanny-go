@@ -4,6 +4,7 @@ import (
 	"xanny-go/api/users/dto"
 	"xanny-go/api/users/repositories"
 	"xanny-go/models"
+	"xanny-go/pkg/config"
 	"xanny-go/pkg/exceptions"
 	"xanny-go/pkg/helpers"
 	"xanny-go/pkg/logger"
@@ -11,7 +12,6 @@ import (
 	emailDTO "xanny-go/emails/dto"
 	emails "xanny-go/emails/services"
 
-	"os"
 	"time"
 
 	"github.com/dgrijalva/jwt-go"
@@ -71,7 +71,7 @@ func (s *CompServicesImpl) Create(ctx *gin.Context, data dto.Users) *exceptions.
 		err = emails.VerificationEmail(emailDTO.EmailVerification{
 			Email:           data.Email,
 			Name:            data.Name,
-			VerificationURL: os.Getenv("FRONTEND_URL") + "/auth/verify?token=" + *token,
+			VerificationURL: config.GetFrontendURL() + "/auth/verify?token=" + *token,
 			SupportEmail:    "support@xanware.id",
 		})
 		if err != nil {
@@ -131,7 +131,7 @@ func (s *CompServicesImpl) ResendVerificationEmail(ctx *gin.Context, email strin
 	err = emails.VerificationEmail(emailDTO.EmailVerification{
 		Email:           user.Email,
 		Name:            user.Name,
-		VerificationURL: os.Getenv("FRONTEND_URL") + "/auth/verify?token=" + *token,
+		VerificationURL: config.GetFrontendURL() + "/auth/verify?token=" + *token,
 		SupportEmail:    "support@xanware.id",
 	})
 	if err != nil {
@@ -188,7 +188,7 @@ func (s *CompServicesImpl) Login(ctx *gin.Context, email, password string) (acce
 		return "", "", exceptions.NewException(401, "Email is not verified")
 	}
 
-	jwtSecret := os.Getenv("JWT_SECRET")
+	jwtSecret := config.GetJWTSecret()
 	token := jwt.New(jwt.SigningMethodHS256)
 	claims := token.Claims.(jwt.MapClaims)
 	claims["uuid"] = user.UUID
@@ -233,7 +233,7 @@ func (s *CompServicesImpl) RefreshToken(ctx *gin.Context, refreshToken string) (
 		return "", err
 	}
 
-	jwtSecret := os.Getenv("JWT_SECRET")
+	jwtSecret := config.GetJWTSecret()
 	token := jwt.New(jwt.SigningMethodHS256)
 	claims := token.Claims.(jwt.MapClaims)
 	claims["uuid"] = user.UUID
@@ -253,7 +253,7 @@ func (s *CompServicesImpl) Logout(ctx *gin.Context, accessToken, refreshToken st
 	tx := s.DB.Begin()
 
 	claims := jwt.MapClaims{}
-	jwtSecret := os.Getenv("JWT_SECRET")
+	jwtSecret := config.GetJWTSecret()
 	_, err := jwt.ParseWithClaims(accessToken, claims, func(token *jwt.Token) (interface{}, error) {
 		return []byte(jwtSecret), nil
 	})

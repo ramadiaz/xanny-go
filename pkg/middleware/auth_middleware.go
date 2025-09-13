@@ -2,9 +2,9 @@ package middleware
 
 import (
 	"net/http"
-	"os"
 	"strings"
 	"xanny-go/api/users/dto"
+	"xanny-go/pkg/config"
 	"xanny-go/pkg/exceptions"
 	"xanny-go/pkg/helpers"
 
@@ -14,7 +14,7 @@ import (
 
 func AuthMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		secret := os.Getenv("JWT_SECRET")
+		secret := config.GetJWTSecret()
 		var secretKey = []byte(secret)
 
 		authHeader := c.GetHeader("Authorization")

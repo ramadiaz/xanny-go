@@ -2,8 +2,8 @@ package middleware
 
 import (
 	"net/http"
-	"os"
 	"strings"
+	"xanny-go/pkg/config"
 	"xanny-go/pkg/exceptions"
 
 	"github.com/dgrijalva/jwt-go"
@@ -12,10 +12,10 @@ import (
 
 func InternalMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		JWT_SECRET := os.Getenv("JWT_SECRET")
-		ADMIN_USERNAME := os.Getenv("ADMIN_USERNAME")
+		INTERNAL_SECRET := config.GetInternalSecret()
+		ADMIN_USERNAME := config.GetAdminUsername()
 
-		var secretKey = []byte(JWT_SECRET)
+		var secretKey = []byte(INTERNAL_SECRET)
 
 		authHeader := c.GetHeader("Authorization")
 		if authHeader == "" {
