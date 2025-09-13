@@ -3,7 +3,7 @@ package config
 import (
 	"os"
 	"reflect"
-	"xanny-go-template/pkg/logger"
+	"xanny-go/pkg/logger"
 )
 
 type Env struct {

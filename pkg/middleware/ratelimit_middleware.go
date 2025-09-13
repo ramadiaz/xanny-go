@@ -1,7 +1,7 @@
 package middleware
 
 import (
-	"xanny-go-template/pkg/exceptions"
+	"xanny-go/pkg/exceptions"
 
 	"github.com/didip/tollbooth/v7"
 	"github.com/didip/tollbooth/v7/limiter"

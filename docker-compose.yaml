@@ -1,10 +1,10 @@
 services:
-  xanny-go-template:
-    container_name: xanny-go-template
+  xanny-go:
+    container_name: xanny-go
     build:
       context: .
       dockerfile: Dockerfile
-    image: "xanny-go-template:1.0.4"
+    image: "xanny-go:1.0.4"
     dns:
       - 8.8.8.8
       - 1.1.1.1

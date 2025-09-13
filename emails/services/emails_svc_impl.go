@@ -6,8 +6,8 @@ import (
 	"net/http"
 	"os"
 	"strconv"
-	"xanny-go-template/emails/dto"
-	"xanny-go-template/pkg/exceptions"
+	"xanny-go/emails/dto"
+	"xanny-go/pkg/exceptions"
 
 	"gopkg.in/gomail.v2"
 )

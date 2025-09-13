@@ -1,8 +1,8 @@
 package main
 
 import (
-	"xanny-go-template/models"
-	"xanny-go-template/pkg/config"
+	"xanny-go/models"
+	"xanny-go/pkg/config"
 )
 
 func main() {

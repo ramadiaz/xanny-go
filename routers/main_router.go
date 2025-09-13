@@ -2,8 +2,8 @@ package routers
 
 import (
 	"net/http"
-	"xanny-go-template/injectors"
-	"xanny-go-template/pkg/helpers"
+	"xanny-go/injectors"
+	"xanny-go/pkg/helpers"
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"

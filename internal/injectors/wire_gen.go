@@ -9,8 +9,8 @@ package injectors
 import (
 	"github.com/go-playground/validator/v10"
 	"github.com/google/wire"
-	"xanny-go-template/internal/auth/controllers"
-	"xanny-go-template/internal/auth/services"
+	"xanny-go/internal/auth/controllers"
+	"xanny-go/internal/auth/services"
 )
 
 // Injectors from injector.go:

@@ -1,8 +1,8 @@
 package repositories
 
 import (
-	"xanny-go-template/models"
-	"xanny-go-template/pkg/exceptions"
+	"xanny-go/models"
+	"xanny-go/pkg/exceptions"
 
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"

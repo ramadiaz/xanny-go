@@ -1,7 +1,7 @@
 package routers
 
 import (
-	"xanny-go-template/internal/auth/controllers"
+	"xanny-go/internal/auth/controllers"
 
 	"github.com/gin-gonic/gin"
 )

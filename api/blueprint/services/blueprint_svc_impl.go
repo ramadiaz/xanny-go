@@ -1,7 +1,7 @@
 package services
 
 import (
-	"xanny-go-template/api/blueprint/repositories"
+	"xanny-go/api/blueprint/repositories"
 
 	"github.com/go-playground/validator/v10"
 	"gorm.io/gorm"

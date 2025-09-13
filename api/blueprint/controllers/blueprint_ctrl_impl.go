@@ -1,6 +1,6 @@
 package controllers
 
-import "xanny-go-template/api/blueprint/services"
+import "xanny-go/api/blueprint/services"
 
 type CompControllersImpl struct {
 	services services.CompServices

@@ -2,7 +2,7 @@ package helpers
 
 import (
 	"net/http"
-	"xanny-go-template/pkg/exceptions"
+	"xanny-go/pkg/exceptions"
 
 	"golang.org/x/crypto/bcrypt"
 )

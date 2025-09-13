@@ -7,7 +7,7 @@ import (
 	"mime/multipart"
 	"net/http"
 	"os"
-	"xanny-go-template/pkg/exceptions"
+	"xanny-go/pkg/exceptions"
 )
 
 func Send(target string, message string) *exceptions.Exception {

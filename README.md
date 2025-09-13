@@ -9,12 +9,12 @@
     <img src="https://go.dev/images/gophers/motorcycle.svg" alt="Logo" width="80" height="80">
   </a>
 
-  <h3 align="center">Xanny Go Template</h3>
+  <h3 align="center">Xanny Go</h3>
 
   <p align="center">
     An awesome Golang API template to jumpstart your projects!
     <br />
-    <a href="https://github.com/ramadiaz/xanny-go-template"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/ramadiaz/xanny-go"><strong>Explore the docs »</strong></a>
     <br />
     <br />
     <a href="https://xann.my.id/incognito">Report Bug</a>
@@ -25,7 +25,7 @@
 
 ## About The Project
 
-**Xanny Go Template** is a robust and scalable boilerplate for building RESTful APIs using Go (Golang). Designed with best practices and modern development in mind, this template serves as a starting point for backend projects, enabling developers to quickly set up and customize their API solutions.
+**Xanny Go** is a robust and scalable boilerplate for building RESTful APIs using Go (Golang). Designed with best practices and modern development in mind, this template serves as a starting point for backend projects, enabling developers to quickly set up and customize their API solutions.
 
 ---
 
@@ -222,14 +222,14 @@
 - **Auto-Migrations**: Automated database migrations using a dedicated migration script for seamless schema updates.
 - **Makefile Automation**: Includes a Makefile for common tasks such as running the application, building binaries, and executing migrations.
 
-### Why Use Xanny Go Template?
+### Why Use Xanny Go?
 
 This template is ideal for developers looking for a ready-to-use, yet flexible structure for their Go backend projects. By providing essential features out-of-the-box, it allows you to focus on building core functionalities without worrying about boilerplate code.
 
 
 ### Built With
 
-Xanny Go Template is built using a combination of powerful tools and libraries that enable fast, scalable, and secure backend development. Here's a list of the technologies and frameworks used in this project:
+Xanny Go is built using a combination of powerful tools and libraries that enable fast, scalable, and secure backend development. Here's a list of the technologies and frameworks used in this project:
 
 * ![Go](https://img.shields.io/badge/GO-blue?style=for-the-badge&logo=go&logoColor=white)
 * ![Gin Framework](https://img.shields.io/badge/Gin-blue?style=for-the-badge&logo=gin&logoColor=fff)
@@ -245,7 +245,7 @@ Xanny Go Template is built using a combination of powerful tools and libraries t
 
 ## Getting Started
 
-To get a local copy of Xanny Go Template up and running on your machine, follow these simple steps.
+To get a local copy of Xanny Go up and running on your machine, follow these simple steps.
 
 ### Prerequisites
 
@@ -261,8 +261,8 @@ Before you begin, ensure you have the following installed on your system:
    Open your terminal and clone the project to your local machine using Git.
 
    ```bash
-   git clone https://github.com/ramadiaz/xanny-go-template.git
-   cd xanny-go-template
+   git clone https://github.com/ramadiaz/xanny-go.git
+   cd xanny-go
    ```
 
 2. **Install dependencies**:
@@ -408,6 +408,6 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 Rama Diaz - [@ramadiazr](https://instagram.com/ramadiazr) - ramadiaz221@gmail.com
 
-Project Link: [https://github.com/ramadiaz/xanny-go-template](https://github.com/ramadiaz/xanny-go-template)
+Project Link: [https://github.com/ramadiaz/xanny-go](https://github.com/ramadiaz/xanny-go)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>

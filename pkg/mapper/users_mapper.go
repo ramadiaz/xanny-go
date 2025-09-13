@@ -1,8 +1,8 @@
 package mapper
 
 import (
-	"xanny-go-template/api/users/dto"
-	"xanny-go-template/models"
+	"xanny-go/api/users/dto"
+	"xanny-go/models"
 
 	"github.com/go-viper/mapstructure/v2"
 )

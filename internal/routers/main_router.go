@@ -1,7 +1,7 @@
 package routers
 
 import (
-	"xanny-go-template/internal/injectors"
+	"xanny-go/internal/injectors"
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"

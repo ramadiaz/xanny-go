@@ -1,4 +1,4 @@
-module xanny-go-template
+module xanny-go
 
 go 1.24.2
 

@@ -1,8 +1,8 @@
 package services
 
 import (
-	"xanny-go-template/internal/auth/dto"
-	"xanny-go-template/pkg/exceptions"
+	"xanny-go/internal/auth/dto"
+	"xanny-go/pkg/exceptions"
 
 	"github.com/gin-gonic/gin"
 )

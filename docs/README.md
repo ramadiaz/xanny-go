@@ -1,6 +1,6 @@
 # API Documentation
 
-This directory contains the auto-generated Swagger/OpenAPI documentation for the Xanny Go Template API.
+This directory contains the auto-generated Swagger/OpenAPI documentation for the Xanny Go API.
 
 ## Overview
 

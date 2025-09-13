@@ -10,9 +10,9 @@ import (
 	"github.com/go-playground/validator/v10"
 	"github.com/google/wire"
 	"gorm.io/gorm"
-	"xanny-go-template/api/users/controllers"
-	"xanny-go-template/api/users/repositories"
-	"xanny-go-template/api/users/services"
+	"xanny-go/api/users/controllers"
+	"xanny-go/api/users/repositories"
+	"xanny-go/api/users/services"
 )
 
 // Injectors from injector.go:

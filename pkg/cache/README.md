@@ -1,4 +1,4 @@
-# Cache Layer for Go Template
+# Cache Layer for Xanny Go
 
 A comprehensive, reusable cache layer for Go applications with support for multiple cache backends, HTTP response caching, and advanced cache management features.
 
@@ -24,7 +24,7 @@ package main
 import (
     "context"
     "log"
-    "xanny-go-template/pkg/cache"
+    "xanny-go/pkg/cache"
 )
 
 func main() {
@@ -78,7 +78,7 @@ package main
 
 import (
     "github.com/gin-gonic/gin"
-    "xanny-go-template/pkg/cache"
+    "xanny-go/pkg/cache"
 )
 
 func main() {
@@ -396,4 +396,4 @@ if memoryCache, ok := cache.(*cache.MemoryCache); ok {
 
 ## License
 
-This cache layer is part of the Xanny Go Template project and follows the same license terms. 
+This cache layer is part of the Xanny Go project and follows the same license terms. 

@@ -8,7 +8,7 @@ import (
 	"log"
 	"net/url"
 	"time"
-	"xanny-go-template/models"
+	"xanny-go/models"
 
 	"github.com/gin-gonic/gin"
 	"github.com/mssola/user_agent"

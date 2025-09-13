@@ -1,15 +1,15 @@
 package services
 
 import (
-	"xanny-go-template/api/users/dto"
-	"xanny-go-template/api/users/repositories"
-	"xanny-go-template/models"
-	"xanny-go-template/pkg/exceptions"
-	"xanny-go-template/pkg/helpers"
-	"xanny-go-template/pkg/logger"
+	"xanny-go/api/users/dto"
+	"xanny-go/api/users/repositories"
+	"xanny-go/models"
+	"xanny-go/pkg/exceptions"
+	"xanny-go/pkg/helpers"
+	"xanny-go/pkg/logger"
 
-	emailDTO "xanny-go-template/emails/dto"
-	emails "xanny-go-template/emails/services"
+	emailDTO "xanny-go/emails/dto"
+	emails "xanny-go/emails/services"
 
 	"os"
 	"time"

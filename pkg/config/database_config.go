@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 	"time"
-	"xanny-go-template/pkg/logger"
+	"xanny-go/pkg/logger"
 
 	"github.com/joho/godotenv"
 	"gorm.io/driver/postgres"

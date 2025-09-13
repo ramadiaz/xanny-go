@@ -4,8 +4,8 @@ import (
 	"net/http"
 	"os"
 	"time"
-	"xanny-go-template/internal/auth/dto"
-	"xanny-go-template/pkg/exceptions"
+	"xanny-go/internal/auth/dto"
+	"xanny-go/pkg/exceptions"
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"

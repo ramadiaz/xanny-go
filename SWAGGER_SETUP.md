@@ -1,6 +1,6 @@
 # Swagger/OpenAPI Documentation Setup
 
-This document describes the complete Swagger/OpenAPI documentation setup for the Xanny Go Template API.
+This document describes the complete Swagger/OpenAPI documentation setup for the Xanny Go API.
 
 ## What Was Implemented
 
@@ -42,7 +42,7 @@ This document describes the complete Swagger/OpenAPI documentation setup for the
 
 #### Main Application
 ```go
-// @title Xanny Go Template API
+// @title Xanny Go API
 // @version 1.0
 // @description A comprehensive Go API template with authentication, user management, and health monitoring.
 // @host localhost:8080
@@ -198,7 +198,7 @@ make swagger
 
 ## Conclusion
 
-The Swagger/OpenAPI documentation is now fully integrated into the Xanny Go Template API. Developers can:
+The Swagger/OpenAPI documentation is now fully integrated into the Xanny Go API. Developers can:
 
 - View interactive API documentation
 - Test endpoints directly from the UI

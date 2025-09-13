@@ -1,7 +1,7 @@
 package routers
 
 import (
-	"xanny-go-template/api/users/controllers"
+	"xanny-go/api/users/controllers"
 
 	"github.com/gin-gonic/gin"
 )

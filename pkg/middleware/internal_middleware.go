@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"os"
 	"strings"
-	"xanny-go-template/pkg/exceptions"
+	"xanny-go/pkg/exceptions"
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"

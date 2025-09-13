@@ -4,9 +4,9 @@ import (
 	"net/http"
 	"os"
 	"strings"
-	"xanny-go-template/api/users/dto"
-	"xanny-go-template/pkg/exceptions"
-	"xanny-go-template/pkg/helpers"
+	"xanny-go/api/users/dto"
+	"xanny-go/pkg/exceptions"
+	"xanny-go/pkg/helpers"
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"

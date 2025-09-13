@@ -2,7 +2,7 @@
     "swagger": "2.0",
     "info": {
         "description": "A comprehensive Go API template with authentication, user management, and health monitoring.",
-        "title": "Xanny Go Template API",
+        "title": "Xanny Go API",
         "termsOfService": "http://swagger.io/terms/",
         "contact": {
             "name": "API Support",
