@@ -313,7 +313,7 @@ var SwaggerInfo = &swag.Spec{
 	Host:             "localhost:8080",
 	BasePath:         "/api/v1",
 	Schemes:          []string{},
-	Title:            "Xanny Go Template API",
+	Title:            "Xanny Go API",
 	Description:      "A comprehensive Go API template with authentication, user management, and health monitoring.",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
